@@ -4,13 +4,17 @@ import "./registerServiceWorker";
 import router from "./router";
 import vuetify from "./plugins/vuetify";
 import Vue2TouchEvents from "vue2-touch-events";
-
+import { VueHammer } from "vue2-hammer";
 import store from "@/store";
 
 import axios from "axios";
 import { initHttp } from "@/services/api/http.init";
 
-Vue.use(Vue2TouchEvents);
+/* VueHammer.config.swipe = {
+  treshold: 200,
+}; */
+
+Vue.use(VueHammer);
 
 Vue.config.productionTip = false;
 

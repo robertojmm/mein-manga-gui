@@ -2,21 +2,38 @@
   <v-container>
     <v-row no-gutters>
       <v-col cols="6" md="1" order="2" order-md="1">
-        <v-btn block="true" @click="previousPage" class="center-vertically">&lt;</v-btn>
+        <v-btn block="true" @click="previousPage" class="center-vertically"
+          >&lt;</v-btn
+        >
       </v-col>
       <v-col cols="12" md="10" order="1" order-md="2">
         <div class="img-container">
-          <img ref="image" class="page" :src="isUrlOrBuffer()" />
+          <img
+            ref="image"
+            class="page"
+            :src="isUrlOrBuffer()"
+            v-hammer:swipe="swipeHandler"
+          />
         </div>
       </v-col>
       <v-col cols="6" md="1" order="3" order-md="3">
-        <v-btn block="true" @click="nextPage" class="center-vertically">&gt;</v-btn>
+        <v-btn block="true" @click="nextPage" class="center-vertically"
+          >&gt;</v-btn
+        >
       </v-col>
       <v-col cols="12" md="1" order="4" order-md="4">
-        <v-btn block="true" @click="getFullScreen" class="center-vertically">FullScreen</v-btn>
+        <v-btn block="true" @click="getFullScreen" class="center-vertically"
+          >FullScreen</v-btn
+        >
       </v-col>
     </v-row>
-    <v-snackbar v-model="snackbar" :left="x === 'left'" right="true" timeout="6000" top="true">
+    <v-snackbar
+      v-model="snackbar"
+      :left="x === 'left'"
+      right="true"
+      timeout="6000"
+      top="true"
+    >
       Use arrow keys to move between pages
       <template v-slot:action="{ attrs }">
         <v-btn dark text v-bind="attrs" @click="snackbar = false">Close</v-btn>
@@ -147,6 +164,11 @@ export default Vue.extend({
     },
     getFullScreen() {
       this.$refs.image.requestFullscreen();
+    },
+    swipeHandler(event: any) {
+      const { direction } = event;
+      // 4 is Swipe right, and 2 is swipe left
+      direction == 4 ? this.previousPage() : this.nextPage();
     },
   },
   components: {},
