@@ -10,6 +10,7 @@ const API = {
     PREPARE_CHAPTER: "/manga/prepareChapter",
     GET_CHAPTER_PROGRESS: "/manga/getChapterProgress",
     UPDATE_CHAPTER_PROGRESS: "/manga/updateChapterProgress",
+    CONTINUE_READING: "/manga/continueReading",
   },
   MANGA: {
     GET_MANGAS: `/manga`,

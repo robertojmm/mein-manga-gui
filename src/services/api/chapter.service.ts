@@ -37,6 +37,10 @@ function getChapterProgress(payload: any) {
   return http.post(API.CHAPTER.GET_CHAPTER_PROGRESS, payload);
 }
 
+function continueReading(payload: any) {
+  return http.post(API.CHAPTER.CONTINUE_READING, payload);
+}
+
 export {
   uploadChapter,
   updateChapter,
@@ -44,4 +48,5 @@ export {
   prepareChapter,
   updateChapterProgress,
   getChapterProgress,
+  continueReading,
 };
