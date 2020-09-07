@@ -47,6 +47,11 @@ const routes: Array<RouteConfig> = [
             component: () => import("@/views/admin/chapter/AddChapter.vue"),
           },
           {
+            path: "/admin/chapter/edit",
+            name: "EditChapter",
+            component: () => import("@/views/admin/chapter/EditChapter.vue"),
+          },
+          {
             path: "/admin/chapter/delete",
             name: "DeleteChapter",
             component: () => import("@/views/admin/chapter/DeleteChapter.vue"),

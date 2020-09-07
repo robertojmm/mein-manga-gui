@@ -6,21 +6,23 @@ function uploadChapter(mangaId: string, payload: any) {
   return http.post(API.CHAPTER.UPLOAD_CHAPTER.replace(":id", mangaId), payload); // file, number
 }
 
+function updateChapter(mangaId: string, chapterNo: string, payload: any) {
+  return http.put(
+    API.CHAPTER.UPDATE_CHAPTER.replace(":id", mangaId).replace(
+      ":chapterNo",
+      chapterNo
+    ),
+    payload
+  );
+}
+
 function deleteChapter(mangaId: string, chapterNo: string) {
-  console.log(store.state.authority);
-  /* return fetch(`${store.state.authority}${API.CHAPTER.DELETE_CHAPTER}`, {
-    method: "DELETE",
-    body: payload,
-    headers: new Headers({
-      Authorization: `Bearer ${store.state.token}`,
-    }),
-  }); */
   return http.delete(
     API.CHAPTER.DELETE_CHAPTER.replace(":mangaId", mangaId).replace(
       ":chapterNo",
       chapterNo
     )
-  ); // mangaId, ChapterNo
+  );
 }
 
 function prepareChapter(payload: any) {
@@ -37,6 +39,7 @@ function getChapterProgress(payload: any) {
 
 export {
   uploadChapter,
+  updateChapter,
   deleteChapter,
   prepareChapter,
   updateChapterProgress,

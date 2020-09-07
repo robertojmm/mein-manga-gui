@@ -5,6 +5,7 @@ const API = {
   },
   CHAPTER: {
     UPLOAD_CHAPTER: "/manga/:id/chapters",
+    UPDATE_CHAPTER: "/manga/:id/chapters/:chapterNo",
     DELETE_CHAPTER: "/manga/:mangaId/chapters/:chapterNo",
     PREPARE_CHAPTER: "/manga/prepareChapter",
     GET_CHAPTER_PROGRESS: "/manga/getChapterProgress",
