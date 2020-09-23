@@ -1,15 +1,15 @@
-import { http } from "@/services/api/http.init";
-import API from "@/constants";
-import store from "@/store";
+import { http } from '@/services/api/http.init';
+import API from '@/constants';
+import store from '@/store';
 
 function uploadChapter(mangaId: string, payload: any) {
-  return http.post(API.CHAPTER.UPLOAD_CHAPTER.replace(":id", mangaId), payload); // file, number
+  return http.post(API.CHAPTER.UPLOAD_CHAPTER.replace(':id', mangaId), payload); // file, number
 }
 
 function updateChapter(mangaId: string, chapterNo: string, payload: any) {
   return http.put(
-    API.CHAPTER.UPDATE_CHAPTER.replace(":id", mangaId).replace(
-      ":chapterNo",
+    API.CHAPTER.UPDATE_CHAPTER.replace(':id', mangaId).replace(
+      ':chapterNo',
       chapterNo
     ),
     payload
@@ -18,8 +18,8 @@ function updateChapter(mangaId: string, chapterNo: string, payload: any) {
 
 function deleteChapter(mangaId: string, chapterNo: string) {
   return http.delete(
-    API.CHAPTER.DELETE_CHAPTER.replace(":mangaId", mangaId).replace(
-      ":chapterNo",
+    API.CHAPTER.DELETE_CHAPTER.replace(':mangaId', mangaId).replace(
+      ':chapterNo',
       chapterNo
     )
   );
@@ -41,6 +41,10 @@ function continueReading(payload: any) {
   return http.post(API.CHAPTER.CONTINUE_READING, payload);
 }
 
+function getLatestUploads() {
+  return http.post(API.CHAPTER.LATEST_UPLOADS);
+}
+
 export {
   uploadChapter,
   updateChapter,
@@ -49,4 +53,5 @@ export {
   updateChapterProgress,
   getChapterProgress,
   continueReading,
+  getLatestUploads,
 };
