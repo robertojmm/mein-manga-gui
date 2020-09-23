@@ -62,10 +62,9 @@ export default Vue.extend({
     };
   },
   async created() {
-    const pages =
-      this.$store.state.pagesUrls.length > 1
-        ? this.$store.state.pagesUrls
-        : await this.loadPages();
+    const pages = this.isPageListInVuex()
+      ? this.$store.state.pagesUrls
+      : await this.loadPages();
     this.totalPages = pages.length;
     this.pages = pages;
     console.log("Total pages: " + pages.length);
@@ -79,6 +78,18 @@ export default Vue.extend({
     this.removeEventListeners();
   },
   methods: {
+    isPageListInVuex() {
+      const payload = {
+        mangaId: parseInt(this.$route.params.mangaId),
+        chapterNo: parseInt(this.$route.params.chapterNo),
+      };
+
+      return (
+        JSON.stringify(payload) ===
+          JSON.stringify(this.$store.state.actualChapterInfo) &&
+        this.$store.state.pagesUrls.length > 1
+      );
+    },
     loadPages() {
       const payload = {
         mangaId: parseInt(this.$route.params.mangaId),

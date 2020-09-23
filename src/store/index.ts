@@ -1,42 +1,46 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import { makeLogin, checkLogin, logOut } from "@/services/api/auth.service";
-import { prepareChapter } from "@/services/api/chapter.service";
+import Vue from 'vue';
+import Vuex from 'vuex';
+import { makeLogin, checkLogin, logOut } from '@/services/api/auth.service';
+import { prepareChapter } from '@/services/api/chapter.service';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    status: "",
-    token: localStorage.getItem("token") || "",
+    status: '',
+    token: localStorage.getItem('token') || '',
     user: {
       userId: 0,
-      username: "",
-      roles: [""],
+      username: '',
+      roles: [''],
     },
-    pagesUrls: [""],
-    authority: "",
+    pagesUrls: [''],
+    authority: '',
+    actualChapterInfo: {
+      mangaId: 0,
+      chapterNo: 0,
+    },
   },
   mutations: {
     authRequest(state) {
-      state.status = "loading";
+      state.status = 'loading';
     },
     authSuccess(state, token) {
-      state.status = "success";
+      state.status = 'success';
       state.token = token;
     },
     authError(state) {
-      state.status = "error";
+      state.status = 'error';
     },
     logout(state) {
-      state.status = "";
-      state.token = "";
+      state.status = '';
+      state.token = '';
       state.user = {
         userId: 0,
-        username: "",
-        roles: [""],
+        username: '',
+        roles: [''],
       };
-      state.pagesUrls = [""];
+      state.pagesUrls = [''];
     },
     loadUser(state, user) {
       state.user = user;
@@ -47,37 +51,41 @@ export default new Vuex.Store({
     setAuthority(state, authority) {
       state.authority = authority;
     },
+    setActualChapterInfo(state, chapterInfo) {
+      state.actualChapterInfo = chapterInfo;
+    },
   },
   actions: {
     login({ commit, dispatch }, user) {
       return new Promise((resolve, reject) => {
-        commit("authRequest");
+        commit('authRequest');
         makeLogin(user).then((token) => {
-          commit("authSuccess", token);
-          dispatch("loadUser");
+          commit('authSuccess', token);
+          dispatch('loadUser');
           resolve();
         });
       });
     },
     loadUser({ commit }) {
-      return checkLogin().then((user) => commit("loadUser", user));
+      return checkLogin().then((user) => commit('loadUser', user));
     },
     logout({ commit }) {
       return new Promise((resolve, reject) => {
-        commit("logout");
+        commit('logout');
         logOut();
         resolve();
       });
     },
     prepareChapter({ commit }, payload) {
       return prepareChapter(payload).then(({ data }) => {
-        commit("savePageUrls", data);
+        commit('savePageUrls', data);
+        commit('setActualChapterInfo', payload);
         return data;
       });
     },
     setAuthority({ commit }, authority) {
       return new Promise((resolve) => {
-        commit("setAuthority", authority);
+        commit('setAuthority', authority);
         resolve();
       });
     },
@@ -85,6 +93,6 @@ export default new Vuex.Store({
   getters: {
     isLoggedIn: (state) => !!state.token,
     authStatus: (state) => state.status,
-    userIsAdmin: (state) => state.user.roles.includes("admin"),
+    userIsAdmin: (state) => state.user.roles.includes('admin'),
   },
 });
