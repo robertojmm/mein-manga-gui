@@ -41,15 +41,15 @@
 </template>
 
 <script lang="ts">
-import { makeLogin, checkLogin } from "@/services/api/auth.service";
+import { makeLogin, checkLogin } from '@web/services/api/auth.service';
 
 export default {
-  name: "Login",
+  name: 'Login',
   components: {},
   data: () => {
     return {
-      username: "",
-      password: "",
+      username: '',
+      password: '',
     };
   },
   methods: {
@@ -59,19 +59,19 @@ export default {
         password: this.password,
       };
       this.$store
-        .dispatch("login", payload)
+        .dispatch('login', payload)
         //makeLogin(payload)
         .then(() => {
-          this.$router.push("/");
+          this.$router.push('/');
         })
-        .catch((error) => console.error(error));
+        .catch(error => console.error(error));
     },
     register() {
-      this.$router.push({ name: "Register" });
+      this.$router.push({ name: 'Register' });
     },
   },
   async created() {
-    await checkLogin().then(() => this.$router.push({ name: "Home" }));
+    await checkLogin().then(() => this.$router.push({ name: 'Home' }));
   },
 };
 </script>

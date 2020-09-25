@@ -21,19 +21,19 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { createUser } from "@/services/api/user.service";
-import UserForm from "@/components/UserForm.vue";
+import Vue from 'vue';
+import { createUser } from '@web/services/api/user.service';
+import UserForm from '@web/components/UserForm.vue';
 
 export default Vue.extend({
-  name: "AddUser",
+  name: 'AddUser',
   data() {
     return {
       user: {
-        username: "",
-        email: "",
-        password: "",
-        roles: "user",
+        username: '',
+        email: '',
+        password: '',
+        roles: 'user',
       },
       valid: true,
     };

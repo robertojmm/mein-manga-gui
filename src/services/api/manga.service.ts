@@ -1,5 +1,5 @@
-import { http } from "@/services/api/http.init";
-import API from "@/constants";
+import { http } from '@web/services/api/http.init';
+import API from '@web/constants';
 
 function fetchMangas() {
   return http.get(API.MANGA.GET_MANGAS);
@@ -10,11 +10,11 @@ function uploadManga(payload: any) {
 }
 
 function deleteMangaWithChapters(id: string) {
-  return http.delete(API.MANGA.DELETE_MANGA_WITH_CHATPERS.replace(":id", id));
+  return http.delete(API.MANGA.DELETE_MANGA_WITH_CHATPERS.replace(':id', id));
 }
 
 function getMangaWithChapters(mangaId: string) {
-  return http.get(API.MANGA.GET_MANGA_AND_CHAPTERS.replace(":id", mangaId));
+  return http.get(API.MANGA.GET_MANGA_AND_CHAPTERS.replace(':id', mangaId));
 }
 
 export {

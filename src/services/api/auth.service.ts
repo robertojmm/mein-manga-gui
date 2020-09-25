@@ -1,16 +1,16 @@
-import { http, setAuthToken } from "@/services/api/http.init";
-import API from "@/constants";
+import { http, setAuthToken } from '@web/services/api/http.init';
+import API from '@web/constants';
 
 function makeLogin(payload: { username: string; password: string }) {
   return http
     .post(API.AUTH.LOGIN, payload)
     .then(({ data }) => {
       const token = data.access_token;
-      localStorage.setItem("token", token);
+      localStorage.setItem('token', token);
       setAuthToken();
       return token;
     })
-    .catch((error) => console.error(error));
+    .catch(error => console.error(error));
 }
 
 function checkLogin() {
@@ -20,7 +20,7 @@ function checkLogin() {
 }
 
 function logOut() {
-  localStorage.removeItem("token");
+  localStorage.removeItem('token');
 }
 
 export { makeLogin, logOut, checkLogin };

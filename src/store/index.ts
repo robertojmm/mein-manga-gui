@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { makeLogin, checkLogin, logOut } from '@/services/api/auth.service';
-import { prepareChapter } from '@/services/api/chapter.service';
+import { makeLogin, checkLogin, logOut } from '@web/services/api/auth.service';
+import { prepareChapter } from '@web/services/api/chapter.service';
 
 Vue.use(Vuex);
 
@@ -59,7 +59,7 @@ export default new Vuex.Store({
     login({ commit, dispatch }, user) {
       return new Promise((resolve, reject) => {
         commit('authRequest');
-        makeLogin(user).then((token) => {
+        makeLogin(user).then(token => {
           commit('authSuccess', token);
           dispatch('loadUser');
           resolve();
@@ -67,7 +67,7 @@ export default new Vuex.Store({
       });
     },
     loadUser({ commit }) {
-      return checkLogin().then((user) => commit('loadUser', user));
+      return checkLogin().then(user => commit('loadUser', user));
     },
     logout({ commit }) {
       return new Promise((resolve, reject) => {
@@ -84,15 +84,15 @@ export default new Vuex.Store({
       });
     },
     setAuthority({ commit }, authority) {
-      return new Promise((resolve) => {
+      return new Promise(resolve => {
         commit('setAuthority', authority);
         resolve();
       });
     },
   },
   getters: {
-    isLoggedIn: (state) => !!state.token,
-    authStatus: (state) => state.status,
-    userIsAdmin: (state) => state.user.roles.includes('admin'),
+    isLoggedIn: state => !!state.token,
+    authStatus: state => state.status,
+    userIsAdmin: state => state.user.roles.includes('admin'),
   },
 });

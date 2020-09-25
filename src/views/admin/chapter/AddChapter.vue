@@ -16,7 +16,13 @@
               required
             ></v-text-field>
 
-            <v-select v-model="manga" :items="mangas" :rules="mangaRules" label="Manga" required></v-select>
+            <v-select
+              v-model="manga"
+              :items="mangas"
+              :rules="mangaRules"
+              label="Manga"
+              required
+            ></v-select>
             <v-file-input
               v-model="file"
               show-size
@@ -33,7 +39,13 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" class="mr-4" :disabled="loading" @click="sendChapter">Upload</v-btn>
+          <v-btn
+            color="primary"
+            class="mr-4"
+            :disabled="loading"
+            @click="sendChapter"
+            >Upload</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-container>
@@ -41,26 +53,26 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { fetchMangas } from "@/services/api/manga.service";
-import { uploadChapter } from "@/services/api/chapter.service";
-import ProgressBar from "@/components/ProgressBar.vue";
+import Vue from 'vue';
+import { fetchMangas } from '@web/services/api/manga.service';
+import { uploadChapter } from '@web/services/api/chapter.service';
+import ProgressBar from '@web/components/ProgressBar.vue';
 
 export default Vue.extend({
-  name: "AddChapter",
+  name: 'AddChapter',
   data() {
     return {
       loading: false,
       valid: true,
-      file: "",
-      chapterNo: "",
+      file: '',
+      chapterNo: '',
       nameRules: [
-        (v: any) => !!v || "Name is required",
+        (v: any) => !!v || 'Name is required',
         /* (v: any) =>
           (v && v.length <= 10) || "Name must be less than 10 characters", */
       ],
-      mangaRules: [(v: any) => !!v || "Manga is required"],
-      fileRules: [(v: any) => !!v || "File is required"],
+      mangaRules: [(v: any) => !!v || 'Manga is required'],
+      fileRules: [(v: any) => !!v || 'File is required'],
       manga: null,
       mangas: [],
     };
@@ -79,19 +91,19 @@ export default Vue.extend({
       }
 
       const formData = new FormData();
-      formData.append("file", this.file);
-      formData.append("number", this.chapterNo);
+      formData.append('file', this.file);
+      formData.append('number', this.chapterNo);
 
       this.loading = true;
       this.$refs.progressBar.reset();
       this.$refs.progressBar.loading();
 
-      uploadChapter(this.manga + "", formData)
-        .then((res) => {
+      uploadChapter(this.manga + '', formData)
+        .then(res => {
           console.log(res);
           this.$refs.progressBar.success();
         })
-        .catch((res) => {
+        .catch(res => {
           console.log(res);
           this.$refs.progressBar.error();
         })

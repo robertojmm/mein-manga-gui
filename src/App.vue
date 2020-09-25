@@ -5,13 +5,13 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { checkLogin } from "@/services/api/auth.service";
+import Vue from 'vue';
+import { checkLogin } from '@web/services/api/auth.service';
 
 export default Vue.extend({
-  name: "App",
+  name: 'App',
   beforeCreate() {
-    this.$store.dispatch("loadUser");
+    this.$store.dispatch('loadUser');
     //checkLogin()
     //.then(() => this.$router.push({ name: "Home" }))
     //.catch(() => this.$router.push({ name: "Login" }));

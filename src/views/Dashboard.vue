@@ -20,7 +20,7 @@
 </template>
 <script lang="ts">
 import Vue from 'vue';
-import Drawer from '@/components/Drawer.vue';
+import Drawer from '@web/components/Drawer.vue';
 
 export default Vue.extend({
   name: 'Dashboard',

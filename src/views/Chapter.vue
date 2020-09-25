@@ -43,15 +43,15 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue from 'vue';
 import {
   updateChapterProgress,
   getChapterProgress,
-} from "@/services/api/chapter.service";
-import { http } from "@/services/api/http.init";
+} from '@web/services/api/chapter.service';
+import { http } from '@web/services/api/http.init';
 
 export default Vue.extend({
-  name: "Chapter",
+  name: 'Chapter',
   data() {
     return {
       snackbar: true,
@@ -67,7 +67,7 @@ export default Vue.extend({
       : await this.loadPages();
     this.totalPages = pages.length;
     this.pages = pages;
-    console.log("Total pages: " + pages.length);
+    console.log('Total pages: ' + pages.length);
 
     const progress = await this.loadProgress();
     this.actualPage = progress;
@@ -95,13 +95,13 @@ export default Vue.extend({
         mangaId: parseInt(this.$route.params.mangaId),
         chapterNo: parseInt(this.$route.params.chapterNo),
       };
-      return this.$store.dispatch("prepareChapter", payload);
+      return this.$store.dispatch('prepareChapter', payload);
     },
     setEventListeners() {
-      window.addEventListener("keyup", this.keyCodeManager);
+      window.addEventListener('keyup', this.keyCodeManager);
     },
     removeEventListeners() {
-      window.removeEventListener("keyup", this.keyCodeManager);
+      window.removeEventListener('keyup', this.keyCodeManager);
     },
     keyCodeManager(event: any) {
       const { keyCode } = event;
@@ -111,7 +111,7 @@ export default Vue.extend({
         39: this.nextPage,
       };
 
-      if (!Object.keys(codes).includes(keyCode + "")) {
+      if (!Object.keys(codes).includes(keyCode + '')) {
         return;
       }
 
@@ -148,13 +148,13 @@ export default Vue.extend({
     async fetchExtraPage() {
       const pageUrl: string = this.pages[this.actualPage + 2];
 
-      if (pageUrl.startsWith("data")) {
+      if (pageUrl.startsWith('data')) {
         return;
       }
 
       const extraPageBase64 = await this.imageUrlToBase64(pageUrl);
 
-      const urlSplitted = pageUrl.split(".");
+      const urlSplitted = pageUrl.split('.');
       const extension = urlSplitted[urlSplitted.length - 1];
 
       this.pages[
@@ -163,15 +163,15 @@ export default Vue.extend({
     },
     imageUrlToBase64(pageUrl: string) {
       return http
-        .get(pageUrl, { responseType: "arraybuffer" })
-        .then(({ data }) => Buffer.from(data, "binary").toString("base64"));
+        .get(pageUrl, { responseType: 'arraybuffer' })
+        .then(({ data }) => Buffer.from(data, 'binary').toString('base64'));
     },
     isUrlOrBuffer() {
       const page: string = this.pages[this.actualPage];
       if (!page) {
         return;
       }
-      return page.startsWith("data") ? page : this.authority + page;
+      return page.startsWith('data') ? page : this.authority + page;
     },
     getFullScreen() {
       this.$refs.image.requestFullscreen();

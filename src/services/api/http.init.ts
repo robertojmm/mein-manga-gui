@@ -1,5 +1,5 @@
-import axios, { AxiosInstance } from "axios";
-import store from "@/store";
+import axios, { AxiosInstance } from 'axios';
+import store from '@web/store';
 
 let http: AxiosInstance;
 
@@ -24,7 +24,7 @@ function initHttp(baseURL: string) {
 
   setAuthToken();
 
-  console.log("HTTP INITIED");
+  console.log('HTTP INITIED');
 }
 
 export { http, initHttp, setAuthToken };

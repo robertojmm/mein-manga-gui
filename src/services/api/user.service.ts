@@ -1,5 +1,5 @@
-import { http } from "@/services/api/http.init";
-import API from "@/constants";
+import { http } from '@web/services/api/http.init';
+import API from '@web/constants';
 
 function getUsers() {
   return http.get(API.USER.GET_USERS);
@@ -14,7 +14,7 @@ function editUser(payload: any) {
 }
 
 function deleteUser(id: string) {
-  return http.delete(API.USER.DELETE_USER.replace(":id", id));
+  return http.delete(API.USER.DELETE_USER.replace(':id', id));
 }
 
 export { getUsers, createUser, editUser, deleteUser };

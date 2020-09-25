@@ -27,14 +27,14 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue from 'vue';
 import {
   getUsers as fetchUsers,
   deleteUser,
-} from "@/services/api/user.service";
+} from '@web/services/api/user.service';
 
 export default Vue.extend({
-  name: "DeleteUser",
+  name: 'DeleteUser',
   data() {
     return {
       select: null,
@@ -53,7 +53,7 @@ export default Vue.extend({
       });
     },
     remove() {
-      deleteUser(this.select + "").then(console.log);
+      deleteUser(this.select + '').then(console.log);
     },
   },
   created() {

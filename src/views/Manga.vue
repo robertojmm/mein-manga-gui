@@ -10,8 +10,16 @@
           <v-container>
             <v-row>
               <template v-for="chapter in manga.chapters">
-                <v-col :key="chapter.id" cols="6" md="3" @click="() => readChapter(chapter)">
-                  <v-img class="clickable" :src="authority + chapter.coverWebPath" />
+                <v-col
+                  :key="chapter.id"
+                  cols="6"
+                  md="3"
+                  @click="() => readChapter(chapter)"
+                >
+                  <v-img
+                    class="clickable"
+                    :src="authority + chapter.coverWebPath"
+                  />
                 </v-col>
               </template>
             </v-row>
@@ -24,12 +32,12 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import Loading from "@/components/Loading.vue";
-import { getMangaWithChapters } from "@/services/api/manga.service";
+import Vue from 'vue';
+import Loading from '@web/components/Loading.vue';
+import { getMangaWithChapters } from '@web/services/api/manga.service';
 
 export default Vue.extend({
-  name: "Manga",
+  name: 'Manga',
   data() {
     return {
       manga: {},
@@ -41,7 +49,7 @@ export default Vue.extend({
     const mangaId = this.$route.params.id;
     getMangaWithChapters(mangaId)
       .then(({ data }) => (this.manga = data))
-      .catch(() => this.$router.push({ name: "NotFound" }));
+      .catch(() => this.$router.push({ name: 'NotFound' }));
   },
   methods: {
     readChapter(chapter) {
@@ -52,10 +60,10 @@ export default Vue.extend({
       };
 
       this.showLoading = true;
-      this.$store.dispatch("prepareChapter", payload).then(() => {
+      this.$store.dispatch('prepareChapter', payload).then(() => {
         this.showLoading = false;
         this.$router.push({
-          name: "Chapter",
+          name: 'Chapter',
           params: { mangaId: this.manga.id, chapterNo: chapter.number },
         });
       });

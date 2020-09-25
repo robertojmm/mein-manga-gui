@@ -36,22 +36,22 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue from 'vue';
 import {
   fetchMangas,
   getMangaWithChapters,
-} from "@/services/api/manga.service";
-import { deleteChapter } from "@/services/api/chapter.service";
-import API from "@/constants";
+} from '@web/services/api/manga.service';
+import { deleteChapter } from '@web/services/api/chapter.service';
+import API from '@web/constants';
 
 export default Vue.extend({
-  name: "DeleteChapter",
+  name: 'DeleteChapter',
   data() {
     return {
       valid: true,
       chapterNo: null,
       chapters: [],
-      chapterNoRules: [(v: any) => !!v || "Chapter Number is required"],
+      chapterNoRules: [(v: any) => !!v || 'Chapter Number is required'],
       manga: null,
       mangas: [],
     };
@@ -65,7 +65,7 @@ export default Vue.extend({
       });
     },
     loadChapters() {
-      getMangaWithChapters(this.manga + "").then(({ data }) => {
+      getMangaWithChapters(this.manga + '').then(({ data }) => {
         console.log(data.chapters);
         this.chapters = data.chapters.map((chapter: any) => chapter.number);
       });
@@ -81,16 +81,16 @@ export default Vue.extend({
       };
 
       const formData = new FormData();
-      formData.append("mangaId", this.manga);
-      formData.append("chapterNo", this.chapterNo);
+      formData.append('mangaId', this.manga);
+      formData.append('chapterNo', this.chapterNo);
 
       console.log(JSON.stringify(payload));
-      deleteChapter(this.manga + "", this.chapterNo + "")
-        .then((res) => {
+      deleteChapter(this.manga + '', this.chapterNo + '')
+        .then(res => {
           console.log(res);
 
           const index = this.chapters.findIndex(
-            (chapter) => chapter.number == this.chapterNo
+            chapter => chapter.number == this.chapterNo,
           );
           this.chapters.splice(index);
 

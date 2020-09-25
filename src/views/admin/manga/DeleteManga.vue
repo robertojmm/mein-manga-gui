@@ -25,7 +25,8 @@
             :loading="loading"
             :disabled="loading"
             @click="deleteManga"
-          >Delete</v-btn>
+            >Delete</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-container>
@@ -33,19 +34,19 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue from 'vue';
 import {
   fetchMangas,
   deleteMangaWithChapters,
-} from "@/services/api/manga.service";
+} from '@web/services/api/manga.service';
 
 export default Vue.extend({
-  name: "DeleteManga",
+  name: 'DeleteManga',
   data() {
     return {
       loading: false,
       select: {},
-      items: [{ text: "a" }, { text: "ba" }],
+      items: [{ text: 'a' }, { text: 'ba' }],
     };
   },
   methods: {
@@ -58,8 +59,8 @@ export default Vue.extend({
     },
     deleteManga() {
       this.loading = true;
-      deleteMangaWithChapters(this.select + "")
-        .then((res) => {
+      deleteMangaWithChapters(this.select + '')
+        .then(res => {
           console.log(res);
           this.removeFromSelect();
         })
@@ -67,7 +68,7 @@ export default Vue.extend({
     },
     removeFromSelect() {
       const mangaPosition = this.items.findIndex(
-        (manga) => manga.value == this.select
+        manga => manga.value == this.select,
       );
       this.items.splice(mangaPosition);
     },

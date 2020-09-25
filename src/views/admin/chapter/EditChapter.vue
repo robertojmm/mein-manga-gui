@@ -34,7 +34,10 @@
 
             <v-row no-gutters>
               <v-col cols="1">
-                <v-checkbox v-model="activations.newChapterNo" :disabled="!checkboxes" />
+                <v-checkbox
+                  v-model="activations.newChapterNo"
+                  :disabled="!checkboxes"
+                />
               </v-col>
               <v-col cols="11">
                 <v-text-field
@@ -50,7 +53,10 @@
 
             <v-row no-gutters>
               <v-col cols="1">
-                <v-checkbox v-model="activations.newFile" :disabled="!checkboxes" />
+                <v-checkbox
+                  v-model="activations.newFile"
+                  :disabled="!checkboxes"
+                />
               </v-col>
               <v-col cols="11">
                 <v-file-input
@@ -66,7 +72,10 @@
 
             <v-row no-gutters>
               <v-col cols="1">
-                <v-checkbox v-model="activations.newChapterPoster" :disabled="!checkboxes" />
+                <v-checkbox
+                  v-model="activations.newChapterPoster"
+                  :disabled="!checkboxes"
+                />
               </v-col>
               <v-col cols="11">
                 <v-file-input
@@ -89,7 +98,13 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" class="mr-4" :disabled="!valid" @click="sendChapter">Upload</v-btn>
+          <v-btn
+            color="primary"
+            class="mr-4"
+            :disabled="!valid"
+            @click="sendChapter"
+            >Upload</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-container>
@@ -97,29 +112,32 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue from 'vue';
 import {
   fetchMangas,
   getMangaWithChapters,
-} from "@/services/api/manga.service";
-import { updateChapter, uploadChapter } from "@/services/api/chapter.service";
-import ProgressBar from "@/components/ProgressBar.vue";
+} from '@web/services/api/manga.service';
+import {
+  updateChapter,
+  uploadChapter,
+} from '@web/services/api/chapter.service';
+import ProgressBar from '@web/components/ProgressBar.vue';
 
 export default Vue.extend({
-  name: "EditChapter",
+  name: 'EditChapter',
   data() {
     return {
       loading: false,
-      newChapterNo: "",
+      newChapterNo: '',
       newFile: null,
       newChapterPoster: null,
       chapter: null,
       chapters: [],
       manga: null,
       mangas: [],
-      nameRules: [(v: any) => !!v || "Chapter number is required"],
-      mangaRules: [(v: any) => !!v || "Manga is required"],
-      fileRules: [(v: any) => !!v || "File is required"],
+      nameRules: [(v: any) => !!v || 'Chapter number is required'],
+      mangaRules: [(v: any) => !!v || 'Manga is required'],
+      fileRules: [(v: any) => !!v || 'File is required'],
       checkboxes: false,
       activations: {
         newChapterNo: false,
@@ -153,7 +171,7 @@ export default Vue.extend({
       });
     },
     loadChapters() {
-      getMangaWithChapters(this.manga + "").then(({ data }) => {
+      getMangaWithChapters(this.manga + '').then(({ data }) => {
         console.log(data.chapters);
         this.chapters = data.chapters.map((chapter: any) => {
           return {
@@ -179,27 +197,27 @@ export default Vue.extend({
       const formData = new FormData();
 
       if (this.validateNewChapterNo()) {
-        formData.append("newChapterNo", this.newChapterNo);
+        formData.append('newChapterNo', this.newChapterNo);
       }
 
       if (this.validateNewFile()) {
-        formData.append("newFile", this.newFile);
+        formData.append('newFile', this.newFile);
       }
 
       if (this.validateNewChapterPoster()) {
-        formData.append("newChapterPoster", this.newChapterPoster);
+        formData.append('newChapterPoster', this.newChapterPoster);
       }
 
       this.loading = true;
       this.$refs.progressBar.reset();
       this.$refs.progressBar.loading();
 
-      updateChapter(this.manga + "", this.chapter.number + "", formData)
-        .then((res) => {
+      updateChapter(this.manga + '', this.chapter.number + '', formData)
+        .then(res => {
           console.log(res);
           this.$refs.progressBar.success();
         })
-        .catch((res) => {
+        .catch(res => {
           console.log(res);
           this.$refs.progressBar.error();
         })

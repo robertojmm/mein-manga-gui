@@ -1,6 +1,6 @@
-import { http } from '@/services/api/http.init';
-import API from '@/constants';
-import store from '@/store';
+import { http } from '@web/services/api/http.init';
+import API from '@web/constants';
+import store from '@web/store';
 
 function uploadChapter(mangaId: string, payload: any) {
   return http.post(API.CHAPTER.UPLOAD_CHAPTER.replace(':id', mangaId), payload); // file, number
@@ -10,9 +10,9 @@ function updateChapter(mangaId: string, chapterNo: string, payload: any) {
   return http.put(
     API.CHAPTER.UPDATE_CHAPTER.replace(':id', mangaId).replace(
       ':chapterNo',
-      chapterNo
+      chapterNo,
     ),
-    payload
+    payload,
   );
 }
 
@@ -20,8 +20,8 @@ function deleteChapter(mangaId: string, chapterNo: string) {
   return http.delete(
     API.CHAPTER.DELETE_CHAPTER.replace(':mangaId', mangaId).replace(
       ':chapterNo',
-      chapterNo
-    )
+      chapterNo,
+    ),
   );
 }
 

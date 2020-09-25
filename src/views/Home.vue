@@ -56,17 +56,17 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import Loading from "@/components/Loading.vue";
-import Manga from "@/components/Manga.vue";
-import { fetchMangas } from "@/services/api/manga.service";
+import Vue from 'vue';
+import Loading from '@web/components/Loading.vue';
+import Manga from '@web/components/Manga.vue';
+import { fetchMangas } from '@web/services/api/manga.service';
 import {
   continueReading,
   getLatestUploads,
-} from "@/services/api/chapter.service";
+} from '@web/services/api/chapter.service';
 
 export default Vue.extend({
-  name: "Home",
+  name: 'Home',
   data() {
     return {
       showLoading: false,
@@ -77,7 +77,7 @@ export default Vue.extend({
     };
   },
   mounted() {
-    console.log("HOME MOUNTED");
+    console.log('HOME MOUNTED');
     fetchMangas()
       .then(({ data }) => {
         this.mangas = data;
@@ -100,7 +100,7 @@ export default Vue.extend({
             coverWebPath: userMangaChapter.chapter.coverWebPath,
             redirectToChapter: () => {
               this.$router.push({
-                name: "Chapter",
+                name: 'Chapter',
                 params: {
                   mangaId: userMangaChapter.manga.id,
                   chapterNo: userMangaChapter.chapter.number,
@@ -125,10 +125,10 @@ export default Vue.extend({
                 chapterNo: chapter.number,
               };
 
-              this.$store.dispatch("prepareChapter", payload).then(() => {
+              this.$store.dispatch('prepareChapter', payload).then(() => {
                 this.showLoading = false;
                 this.$router.push({
-                  name: "Chapter",
+                  name: 'Chapter',
                   params: payload,
                 });
               });
