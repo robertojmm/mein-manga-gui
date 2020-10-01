@@ -2,15 +2,7 @@ import { http, setAuthToken } from '@web/services/api/http.init';
 import API from '@web/constants';
 
 function makeLogin(payload: { username: string; password: string }) {
-  return http
-    .post(API.AUTH.LOGIN, payload)
-    .then(({ data }) => {
-      const token = data.access_token;
-      localStorage.setItem('token', token);
-      setAuthToken();
-      return token;
-    })
-    .catch(error => console.error(error));
+  return http.post(API.AUTH.LOGIN, payload);
 }
 
 function checkLogin() {
