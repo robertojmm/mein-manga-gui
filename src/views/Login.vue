@@ -13,6 +13,7 @@
                 <v-form>
                   <v-text-field
                     v-model="username"
+                    v-on:keydown.enter="login()"
                     label="Username"
                     name="username"
                     prepend-icon="mdi-account"
@@ -21,6 +22,7 @@
 
                   <v-text-field
                     v-model="password"
+                    v-on:keydown.enter="login()"
                     label="Password"
                     name="password"
                     prepend-icon="mdi-lock"
