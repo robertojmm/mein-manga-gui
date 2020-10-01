@@ -29,6 +29,7 @@
                 </v-form>
               </v-card-text>
               <v-card-actions>
+                <span class="login-error-message red--text">{{error}}</span>
                 <v-spacer></v-spacer>
                 <v-btn color="primary" @click="login">Login</v-btn>
               </v-card-actions>
@@ -50,21 +51,32 @@ export default {
     return {
       username: '',
       password: '',
+      error: ''
     };
   },
   methods: {
     login() {
+    this.error = '';
       const payload = {
         username: this.username,
         password: this.password,
       };
       this.$store
         .dispatch('login', payload)
-        //makeLogin(payload)
         .then(() => {
           this.$router.push('/');
         })
-        .catch(error => console.error(error));
+        .catch(error => {
+          const ERROR_MESSAGES = {
+            'auth-error': 'User or password incorrect',
+            'unknow-error': 'Unknow server error'
+          }
+          if(error.response && error.response.status === 401){
+            this.error = ERROR_MESSAGES['auth-error']
+          }else{
+            this.error = ERROR_MESSAGES['unknow-error']
+          }
+        });
     },
     register() {
       this.$router.push({ name: 'Register' });
