@@ -11,7 +11,8 @@
               <template v-for="chapter in latestUploads">
                 <v-col
                   :key="chapter.key"
-                  cols="2"
+                  cols="4"
+                  md="2"
                   @click="chapter.redirectToChapter"
                   ><v-img
                     class="clickable"
@@ -28,7 +29,8 @@
               <template v-for="chapter in continueReading">
                 <v-col
                   :key="chapter.key"
-                  cols="2"
+                  cols="4"
+                  md="2"
                   @click="chapter.redirectToChapter"
                   ><v-img
                     class="clickable"
