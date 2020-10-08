@@ -24,6 +24,11 @@ const routes: Array<RouteConfig> = [
         component: Home,
       },
       {
+        path: '/library',
+        name: 'Library',
+        component: () => import('@web/views/Library.vue'),
+      },
+      {
         path: '/admin',
         name: 'Admin',
         component: () => import('@web/views/Admin.vue'),

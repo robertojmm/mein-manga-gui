@@ -29,6 +29,7 @@ export default Vue.extend({
       drawer: true,
       drawerItems: [
         { title: 'Home', icon: 'mdi-home', route: '/' },
+        { title: 'Library', icon: 'mdi-format-list-bulleted', route: '/library' },
         {
           title: 'Admin',
           icon: 'mdi-lock-open',

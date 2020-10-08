@@ -5,14 +5,13 @@
 
       <v-container>
         <v-row>
-          <v-col cols="12" md="6" v-if="latestUploads.length > 0">
+          <v-col cols="12" >
             <h3>New Chapters</h3>
             <v-row>
               <template v-for="chapter in latestUploads">
                 <v-col
                   :key="chapter.key"
-                  cols="4"
-                  md="4"
+                  cols="2"
                   @click="chapter.redirectToChapter"
                   ><v-img
                     class="clickable"
@@ -22,15 +21,14 @@
               </template>
             </v-row>
           </v-col>
-
-          <v-col cols="12" md="6" v-if="continueReading.length > 0">
+          
+          <v-col cols="12">
             <h3>Continue reading</h3>
             <v-row>
               <template v-for="chapter in continueReading">
                 <v-col
                   :key="chapter.key"
-                  cols="4"
-                  md="4"
+                  cols="2"
                   @click="chapter.redirectToChapter"
                   ><v-img
                     class="clickable"
@@ -40,14 +38,6 @@
               </template>
             </v-row>
           </v-col>
-        </v-row>
-        <h3>Library</h3>
-        <v-row>
-          <template v-for="manga in mangas">
-            <v-col :key="manga.id" cols="6" md="2">
-              <manga :manga="manga" />
-            </v-col>
-          </template>
         </v-row>
       </v-container>
     </div>
@@ -58,8 +48,6 @@
 <script lang="ts">
 import Vue from 'vue';
 import Loading from '@web/components/Loading.vue';
-import Manga from '@web/components/Manga.vue';
-import { fetchMangas } from '@web/services/api/manga.service';
 import {
   continueReading,
   getLatestUploads,
@@ -78,38 +66,45 @@ export default Vue.extend({
   },
   mounted() {
     console.log('HOME MOUNTED');
-    fetchMangas()
-      .then(({ data }) => {
-        this.mangas = data;
-      })
-      .then(() => {
-        this.prepareContinueReading();
-        this.prepareLatestUploads();
-      });
+    new Promise(resolve => setTimeout(resolve, 0)).then(() => {
+      this.prepareContinueReading();
+      this.prepareLatestUploads();
+    })
   },
   methods: {
     prepareContinueReading() {
-      const payload = {
-        userId: this.$store.state.user.userId,
-      };
-      console.log(payload);
-      continueReading(payload).then(({ data }) => {
-        this.continueReading = data.map((userMangaChapter: any) => {
-          return {
-            key: userMangaChapter.chapter.id,
-            coverWebPath: userMangaChapter.chapter.coverWebPath,
-            redirectToChapter: () => {
-              this.$router.push({
-                name: 'Chapter',
-                params: {
-                  mangaId: userMangaChapter.manga.id,
-                  chapterNo: userMangaChapter.chapter.number,
-                },
-              });
-            },
-          };
+
+      const userId = this.$store.state.user.userId;
+      const time = userId == 0 ? 500 : 0;
+
+      //TODO - Improve this.
+      setTimeout(() => {
+
+        const payload = {
+          userId: this.$store.state.user.userId
+        };
+
+        console.log(payload);
+        continueReading(payload).then(({ data }) => {
+          this.continueReading = data.map((userMangaChapter: any) => {
+            return {
+              key: userMangaChapter.chapter.id,
+              coverWebPath: userMangaChapter.chapter.coverWebPath,
+              redirectToChapter: () => {
+                this.$router.push({
+                  name: 'Chapter',
+                  params: {
+                    mangaId: userMangaChapter.manga.id,
+                    chapterNo: userMangaChapter.chapter.number,
+                  },
+                });
+              },
+            };
+          });
         });
-      });
+
+
+      }, time)
     },
     prepareLatestUploads() {
       getLatestUploads().then(({ data }) => {
@@ -138,7 +133,7 @@ export default Vue.extend({
       });
     },
   },
-  components: { Manga, Loading },
+  components: { Loading },
 });
 </script>
 
