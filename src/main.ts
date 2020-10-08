@@ -5,6 +5,8 @@ import router from './router';
 import vuetify from './plugins/vuetify';
 import Vue2TouchEvents from 'vue2-touch-events';
 import { VueHammer } from 'vue2-hammer';
+import VueLazyload from 'vue-lazyload';
+import VueWaypoint from 'vue-waypoint';
 import store from '@web/store';
 
 import axios from 'axios';
@@ -15,6 +17,8 @@ import { initHttp } from '@web/services/api/http.init';
 }; */
 
 Vue.use(VueHammer);
+Vue.use(VueLazyload);
+Vue.use(VueWaypoint);
 
 Vue.config.productionTip = false;
 
